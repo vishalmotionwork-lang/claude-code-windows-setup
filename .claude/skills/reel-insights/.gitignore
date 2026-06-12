@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+*.log
+# project data never lives in the skill repo
+reels/
+.reel-build/
+MASTER.md
+.env
+
+# runtime-generated helpers (written by serve.sh / paste-video-mac.sh)
+scripts/reel_cors_server.py
+scripts/_clip_file.swift

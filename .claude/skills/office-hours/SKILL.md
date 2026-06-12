@@ -1,0 +1,1 @@
+/Users/vishal.motion/.claude/skills/gstack/office-hours/SKILL.md

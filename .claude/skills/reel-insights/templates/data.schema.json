@@ -1,0 +1,31 @@
+{
+  "id": "DYxxxxxxxxx",
+  "rank": 1,
+  "title": "Human title for the reel",
+  "topic": "short topic tag",
+  "url": "https://www.instagram.com/p/DYxxxxxxxxx/",
+  "postType": "trial",
+  "postedDate": "May 19, 2026",
+  "cta": "comment \"ai\"",
+  "hook": "First line / spoken hook of the reel.",
+  "videoLengthSec": 46,
+
+  "_comment_stable": "Captured ONCE (usually from the lifetime/most-complete window). These don't get a per-window column.",
+  "stable": {
+    "retentionStartPct": 51,
+    "discovery": { "reelsTab": 7.3, "feed": 77.6, "explore": 2.0, "profile": 10.9, "stories": 0.6, "search": 0.2 },
+    "audience": { "13-17": 3.8, "18-24": 34.0, "25-34": 41.4, "35-44": 15.0, "45-54": 4.4, "languages": "Hindi 62, Telugu 7" }
+  },
+
+  "_comment_windows": "One object per capture window present. Builder renders these as COLUMNS. Omit windows you didn't capture; use null for any metric not visible in that capture.",
+  "windows": {
+    "1h":       { "views": 2103, "reached": 1800, "avgWatchSec": 9, "skipRate": 61, "retentionEndPct": null, "follows": 40, "likes": 120, "comments": 30, "shares": 60, "saves": 95, "reposts": 2, "commentRate": null, "saveRate": null, "shareRate": null, "likeRate": null, "profileVisits": null, "bioTaps": null },
+    "24h":      { "views": 13900, "reached": 8477, "avgWatchSec": 8, "skipRate": 59.4, "retentionEndPct": 5, "follows": 20, "likes": 327, "comments": 10, "shares": 104, "saves": 105, "reposts": 10, "commentRate": 0.1, "saveRate": 1.0, "shareRate": 1.0, "likeRate": 3.2, "profileVisits": 115, "bioTaps": 3 },
+    "48h":      {},
+    "weekly":   {},
+    "lifetime": {}
+  },
+
+  "nodes": { "reelVideo": "", "insightsVideo": "", "link": "" },
+  "files": { "reel": "reel.mp4", "transcript": "transcript.txt", "caption": "caption.txt", "insights": "insights/" }
+}

@@ -1,0 +1,1 @@
+/Users/vishal.motion/.claude/skills/gstack/open-gstack-browser/SKILL.md

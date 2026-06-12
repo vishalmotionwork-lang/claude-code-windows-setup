@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(uv:*)",
+      "Bash(uvx:*)",
+      "Bash(pip:*)",
+      "Bash(git:*)",
+      "Bash(gh:*)",
+      "Bash(yt-dlp:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)",
+      "Bash(grep:*)",
+      "Bash(rg:*)",
+      "Bash(curl:*)",
+      "Bash(claude mcp list:*)",
+      "Bash(claude mcp get:*)",
+      "WebSearch"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"console.log('Startup protocol: read ~/.claude/memory/MEMORY.md, then USER.md, then ALL feedback_*.md, then projects/REGISTRY.md before responding. Ask which project.')\""
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "everything-claude-code@everything-claude-code": true,
+    "frontend-design@claude-plugins-official": true,
+    "telegram@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": { "source": "github", "repo": "anthropics/claude-plugins-official" }
+    },
+    "everything-claude-code": {
+      "source": { "source": "github", "repo": "affaan-m/everything-claude-code" }
+    }
+  }
+}

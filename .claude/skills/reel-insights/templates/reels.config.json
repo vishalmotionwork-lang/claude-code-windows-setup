@@ -1,0 +1,8 @@
+{
+  "handle": "@zeeeljain",
+  "followers": "126K",
+  "board": "Trial strategy",
+  "fileKey": "6d4thXqsXL5caR7Ay4yg2x",
+  "avatarHash": "614d0486f8600a15e0891113d57f5191b6e17ba3",
+  "_note": "Per-project config read by prep.mjs + master.mjs. Copy this into your project root as reels.config.json and edit. avatarHash = the imageHash of the avatar already uploaded to the board (figma_set_image_fill returns it; leave empty for a grey placeholder). fileKey = the FigJam board to build into."
+}
