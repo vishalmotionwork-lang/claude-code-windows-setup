@@ -94,10 +94,16 @@ if [ -x /opt/homebrew/bin/brew ]; then BREW_BIN=/opt/homebrew/bin/brew
 elif [ -x /usr/local/bin/brew ]; then BREW_BIN=/usr/local/bin/brew
 else BREW_BIN="$(command -v brew 2>/dev/null)"; fi
 if [ -n "$BREW_BIN" ]; then eval "$("$BREW_BIN" shellenv)"; fi
-# Persist brew shellenv to ~/.zprofile (standard) if not already there
-if [ -n "$BREW_BIN" ] && ! grep -qs 'brew shellenv' "$HOME/.zprofile" 2>/dev/null; then
-  printf '\n# Homebrew\neval "$(%s shellenv)"\n' "$BREW_BIN" >> "$HOME/.zprofile"
-fi
+# Append a line to BOTH ~/.zprofile (login shells) AND ~/.zshrc (interactive / new tabs),
+# dedup-guarded. Writing only to .zprofile is why `claude` shows up as "command not found".
+persist_line(){ # $1 = dedup substring, $2 = literal line, $3 = comment header
+  local match="$1" line="$2" hdr="$3" rc
+  for rc in "$HOME/.zprofile" "$HOME/.zshrc"; do
+    grep -qs "$match" "$rc" 2>/dev/null && continue
+    printf '\n# %s\n%s\n' "$hdr" "$line" >> "$rc"
+  done
+}
+if [ -n "$BREW_BIN" ]; then persist_line 'brew shellenv' "eval \"\$($BREW_BIN shellenv)\"" 'Homebrew'; fi
 
 brew_install(){ # $1 = probe cmd, $2 = formula, $3 = label
   local probe="$1" formula="$2" label="$3"
@@ -148,10 +154,8 @@ else
       warn "Claude Code install failed"; FAILED+=("Claude Code")
     fi
   fi
-  # ensure ~/.local/bin is persisted to PATH
-  if [ -d "$HOME/.local/bin" ] && ! grep -qs '.local/bin' "$HOME/.zprofile" 2>/dev/null; then
-    printf '\n# Claude Code (native installer)\nexport PATH="$HOME/.local/bin:$PATH"\n' >> "$HOME/.zprofile"
-  fi
+  # persist ~/.local/bin to PATH in BOTH rc files (login + interactive)
+  [ -d "$HOME/.local/bin" ] && persist_line '.local/bin' 'export PATH="$HOME/.local/bin:$PATH"' 'Claude Code (native installer)'
 fi
 
 # ---------------------------------------------------------------------------
