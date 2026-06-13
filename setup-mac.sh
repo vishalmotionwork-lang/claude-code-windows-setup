@@ -49,6 +49,35 @@ if [ "$(uname -s)" != "Darwin" ]; then
   printf 'This installer is for macOS. On Windows use setup.ps1.\n'; exit 1
 fi
 
+gray "Brand-new Mac? You'll be asked for: (a) your password (Homebrew needs sudo),"
+gray "and (b) one click on the 'Command Line Tools' install dialog. Keep this window open."
+
+# ---------------------------------------------------------------------------
+# Xcode Command Line Tools (REQUIRED first on a fresh Mac: git + compilers)
+# ---------------------------------------------------------------------------
+step "Xcode Command Line Tools"
+if xcode-select -p >/dev/null 2>&1; then
+  ok "Command Line Tools present"
+else
+  warn "Command Line Tools missing - installing (required for git + Homebrew)"
+  # GUI trigger (most reliable across macOS versions); user clicks "Install".
+  xcode-select --install >/dev/null 2>&1 || true
+  printf '  %sA macOS dialog should appear -> click "Install" and "Agree".%s\n' "$C_YEL" "$C_RST"
+  gray "waiting for Command Line Tools to finish (this can take several minutes)..."
+  # poll up to ~30 min (360 x 5s)
+  i=0
+  while [ "$i" -lt 360 ]; do
+    xcode-select -p >/dev/null 2>&1 && break
+    sleep 5; i=$((i+1))
+  done
+  if xcode-select -p >/dev/null 2>&1; then
+    ok "Command Line Tools installed"
+  else
+    warn "Command Line Tools not detected - finish the dialog, then re-run this command"
+    FAILED+=("Command Line Tools")
+  fi
+fi
+
 # ---------------------------------------------------------------------------
 # Homebrew (package manager)
 # ---------------------------------------------------------------------------
@@ -88,7 +117,7 @@ brew_install(){ # $1 = probe cmd, $2 = formula, $3 = label
 step "Toolchain"
 brew_install git    git           'Git'
 brew_install node   node          'Node.js'
-brew_install python python@3.12   'Python 3.12'
+brew_install python3 python        'Python 3'
 brew_install uv     uv            'uv (Python tool runner)'
 brew_install ffmpeg ffmpeg        'ffmpeg'
 brew_install yt-dlp yt-dlp        'yt-dlp'
